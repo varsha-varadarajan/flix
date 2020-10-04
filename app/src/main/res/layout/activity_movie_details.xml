@@ -8,13 +8,18 @@
     tools:context=".MovieDetailsActivity"
     android:layout_margin="5dp">
 
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/ytPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
+        android:layout_below="@+id/ytPlayer"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:text="Movie Title"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:layout_alignParentRight="true"
