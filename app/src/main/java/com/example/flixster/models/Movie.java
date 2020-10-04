@@ -3,29 +3,22 @@ package com.example.flixster.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class Movie {
+    int id;
     String posterPath;
     String backdropPath;
     String title;
     String overview;
+    Double averageVote;
 
-    Movie(JSONObject jsonObject) throws JSONException {
-        posterPath = jsonObject.getString("poster_path");
-        backdropPath = jsonObject.getString("backdrop_path");
-        title = jsonObject.getString("title");
-        overview = jsonObject.getString("overview");
-    }
-
-    public static List<Movie> fromJSONArray(JSONArray jsonArray) throws JSONException {
-        List<Movie> movies = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            movies.add(new Movie(jsonArray.getJSONObject(i)));
-        }
-        return movies;
+    public int getId() {
+        return id;
     }
 
     public String getPosterPath() {
@@ -42,6 +35,30 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    public Double getAverageVote() {
+        return averageVote;
+    }
+
+    // default constructor needed for Parceler
+    public Movie() {}
+
+    public Movie(JSONObject jsonObject) throws JSONException {
+        id = jsonObject.getInt("id");
+        posterPath = jsonObject.getString("poster_path");
+        backdropPath = jsonObject.getString("backdrop_path");
+        title = jsonObject.getString("title");
+        overview = jsonObject.getString("overview");
+        averageVote = jsonObject.getDouble("vote_average");
+    }
+
+    public static List<Movie> fromJSONArray(JSONArray jsonArray) throws JSONException {
+        List<Movie> movies = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            movies.add(new Movie(jsonArray.getJSONObject(i)));
+        }
+        return movies;
     }
 }
 

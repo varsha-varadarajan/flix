@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MovieTrailerActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMovies"
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/player"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp" />
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
