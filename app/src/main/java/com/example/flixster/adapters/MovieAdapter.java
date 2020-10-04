@@ -1,7 +1,9 @@
 package com.example.flixster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Parcel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flixster.MovieDetailsActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -55,7 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvTitle;
         TextView tvOverview;
@@ -66,6 +71,31 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+
+            // add this as Item view's onCLickListener
+            itemView.setOnClickListener(this);
+        }
+
+        // when the user clicks on a row (that is an item), navigate to MovieDetailsActivity
+        @Override
+        public void onClick(View v) {
+             // get the row number that was clicked
+            int position = getAdapterPosition();
+
+            // check if the position is valid
+            if (position != RecyclerView.NO_POSITION) {
+                // get the movie at the position, will not work if ViewHolder class is static
+                Movie movie = movies.get(position);
+
+                // create a new intent
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+
+                // serialize the movie
+                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+
+                // show the activity
+                context.startActivity(intent);
+            }
         }
 
         public void bind(Movie movie) {
@@ -83,5 +113,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .load(imageUrl)
                     .into(ivPoster);
         }
+
+
     }
 }
